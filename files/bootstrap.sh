@@ -43,3 +43,7 @@ if_not_exist emerge || {
 	emerge --quiet --ask n =dev-lang/python-2\* lsb-release gentoolkit
 	exit
 }
+
+# Other OSes are not supported at this time.
+echo 'Not supported.' 1>&2
+exit 1
