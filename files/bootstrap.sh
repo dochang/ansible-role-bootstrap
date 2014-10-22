@@ -2,6 +2,8 @@
 
 set -e
 
+export LC_ALL=C
+
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin
 
 if_not_exist() {
