@@ -1,6 +1,8 @@
 Bootstrap
 =========
 
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-dochang.bootstrap-blue.svg)](https://galaxy.ansible.com/list#/roles/1847)
+
 An ansible role to install `python2` and `lsb_release` on GNU/Linux machine.
 
 Requirements
