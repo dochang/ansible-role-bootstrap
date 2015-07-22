@@ -11,7 +11,7 @@ if_not_exist() {
 }
 
 if_not_exist apt-get || {
-	DEBIAN_FRONTEND=noninteractive
+	export DEBIAN_FRONTEND=noninteractive
 	apt-get --quiet=2 update
 	apt-get --quiet=2 --assume-yes install python2.7 lsb-release
 	exit
