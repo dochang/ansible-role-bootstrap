@@ -18,7 +18,7 @@ install_pip() {
 if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get --quiet=2 update
-	apt-get --quiet=2 --assume-yes install python2.7 lsb-release curl
+	apt-get --quiet=2 --assume-yes install python2.7 python2.7-dev lsb-release curl
 	install_pip
 	exit
 }
@@ -35,14 +35,14 @@ if_not_exist pacman || {
 #     depends on it.
 if_not_exist zypper || {
 	zypper --quiet refresh
-	zypper --quiet --non-interactive install --auto-agree-with-licenses python lsb-release python-xml curl
+	zypper --quiet --non-interactive install --auto-agree-with-licenses python python-devel lsb-release python-xml curl
 	install_pip
 	exit
 }
 
 if_not_exist yum || {
 	yum --quiet makecache fast
-	yum --quiet --assumeyes install python redhat-lsb-core curl
+	yum --quiet --assumeyes install python python-devel redhat-lsb-core curl
 	install_pip
 	exit
 }
