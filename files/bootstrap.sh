@@ -40,6 +40,13 @@ if_not_exist zypper || {
 	exit
 }
 
+if_not_exist dnf || {
+	dnf --quiet makecache fast
+	dnf --quiet --assumeyes install python python-devel redhat-lsb-core curl
+	install_pip
+	exit
+}
+
 if_not_exist yum || {
 	yum --quiet makecache fast
 	yum --quiet --assumeyes install python python-devel redhat-lsb-core curl
