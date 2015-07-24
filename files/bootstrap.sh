@@ -42,7 +42,7 @@ if_not_exist zypper || {
 
 if_not_exist yum || {
 	yum --quiet makecache fast
-	yum --quiet --assumeyes install python2 redhat-lsb-core curl
+	yum --quiet --assumeyes install python redhat-lsb-core curl
 	install_pip
 	exit
 }
