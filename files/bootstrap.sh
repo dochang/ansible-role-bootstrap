@@ -11,8 +11,8 @@ if_not_exist() {
 }
 
 install_pip() {
-	curl -sSL https://bootstrap.pypa.io/get-pip.py | python2
-	pip2 install -U pip
+	curl --silent --show-error --location https://bootstrap.pypa.io/get-pip.py | python2
+	pip2 install --upgrade pip
 }
 
 if_not_exist apt-get || {
