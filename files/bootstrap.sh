@@ -18,7 +18,7 @@ install_pip() {
 if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get --quiet=2 update
-	apt-get --quiet=2 --assume-yes install python2.7 python2.7-dev lsb-release curl
+	apt-get --quiet=2 --assume-yes install python python-dev lsb-release curl
 	install_pip
 	exit
 }
