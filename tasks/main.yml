@@ -2,5 +2,5 @@
 - name: bootstrap
   script: bootstrap.sh
 
-- name: gather facts
+- name: regather facts from lsb_release
   setup:
