@@ -6,7 +6,7 @@ Bootstrap
 [![Issue Stats](http://issuestats.com/github/dochang/ansible-role-bootstrap/badge/pr)](http://www.issuestats.com/github/dochang/ansible-role-bootstrap)
 [![Issue Stats](http://issuestats.com/github/dochang/ansible-role-bootstrap/badge/issue)](http://www.issuestats.com/github/dochang/ansible-role-bootstrap)
 
-An ansible role to install `python2` and `lsb_release` on GNU/Linux machine.
+An ansible role to install `python2`, `pip`, `lsb_release` and `curl` on GNU/Linux machine.
 
 Requirements
 ------------
