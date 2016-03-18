@@ -17,12 +17,14 @@ download() {
 }
 
 install_pip() {
-	# Install pip from upstream instead of distro since these bugs:
-	#
-	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=744145
-	# https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991
-	# https://github.com/docker/docker-py/issues/525#issuecomment-79428103
-	download ${PIP_INSTALLER_URI} | python2
+	if_not_exist pip2 || {
+		# Install pip from upstream instead of distro since these bugs:
+		#
+		# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=744145
+		# https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991
+		# https://github.com/docker/docker-py/issues/525#issuecomment-79428103
+		download ${PIP_INSTALLER_URI} | python2
+	}
 	pip2 install --upgrade pip
 }
 
