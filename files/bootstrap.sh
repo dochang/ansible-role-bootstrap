@@ -6,8 +6,14 @@ export LC_ALL=C
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin
 
+PIP_INSTALLER_URI=https://bootstrap.pypa.io/get-pip.py
+
 if_not_exist() {
 	! command -v "$1" >/dev/null 2>&1
+}
+
+download() {
+	curl --silent --show-error --location "$@"
 }
 
 install_pip() {
@@ -16,7 +22,7 @@ install_pip() {
 	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=744145
 	# https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1306991
 	# https://github.com/docker/docker-py/issues/525#issuecomment-79428103
-	curl --silent --show-error --location https://bootstrap.pypa.io/get-pip.py | python2
+	download ${PIP_INSTALLER_URI} | python2
 	pip2 install --upgrade pip
 }
 
