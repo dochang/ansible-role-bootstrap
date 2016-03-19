@@ -1,6 +1,6 @@
 galaxy_info:
   author: Desmond O. Chang
-  description: Ensure python2, pip, lsb_release & curl installed
+  description: Ensure python2 installed
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -150,10 +150,6 @@ galaxy_info:
   - bootstrap
   - python
   - python2
-  - pip
-  - pip2
-  - lsb
-  - curl
 
 dependencies: []
   # List your role dependencies here, one per line.

@@ -6,7 +6,7 @@ Bootstrap
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/dochang/ansible-role-bootstrap.svg)](http://isitmaintained.com/project/dochang/ansible-role-bootstrap "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/dochang/ansible-role-bootstrap.svg)](http://isitmaintained.com/project/dochang/ansible-role-bootstrap "Percentage of issues still open")
 
-An ansible role to install `python2`, `pip`, `lsb_release` and `curl` on GNU/Linux machine.
+An ansible role to install `python2` on GNU/Linux machine.
 
 Requirements
 ------------

@@ -2,5 +2,5 @@
 - name: bootstrap
   script: bootstrap.sh
 
-- name: regather facts from lsb_release
+- name: regather facts after python installed
   setup:
