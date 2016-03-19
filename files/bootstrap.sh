@@ -60,6 +60,11 @@ if_not_exist emerge || {
 	exit
 }
 
+if_not_exist apk || {
+	apk add --quiet --update-cache python python-dev
+	exit
+}
+
 # Other OSes are not supported at this time.
 echo 'Not supported.' 1>&2
 exit 1
