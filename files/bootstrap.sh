@@ -10,10 +10,12 @@ if_not_exist() {
 	! command -v "$1" >/dev/null 2>&1
 }
 
+# # apt #
+#   - Install `python-apt` which is required by Ansible `apt` module.
 if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get --quiet=2 update
-	apt-get --quiet=2 --assume-yes install python python-dev
+	apt-get --quiet=2 --assume-yes install python python-dev python-apt
 	exit
 }
 
@@ -32,20 +34,26 @@ if_not_exist zypper || {
 	exit
 }
 
+# # dnf #
+#   - Install `python2-dnf`, which is required by Ansible `dnf` module.
 if_not_exist dnf || {
 	dnf --quiet makecache fast
-	dnf --quiet --assumeyes install python python-devel
+	dnf --quiet --assumeyes install python python-devel python2-dnf
 	exit
 }
 
+# # yum #
+#   - Install `yum-utils`.  Ansible `yum` module requires `repoquery`, which is
+#     provided by `yum-utils`, to use `list` parameter.
 if_not_exist yum || {
 	yum --quiet makecache fast
-	yum --quiet --assumeyes install python python-devel
+	yum --quiet --assumeyes install python python-devel yum-utils
 	exit
 }
 
 # # emerge #
-#   - Install `gentoolkit`, which contains `equery`.
+#   - Install `gentoolkit`, which contains `equery`.  `gentoolkit` is also
+#     required by Ansible `portage` module.
 if_not_exist emerge || {
 	emerge --quiet --sync
 	emerge --quiet --ask n =dev-lang/python-2\* gentoolkit
