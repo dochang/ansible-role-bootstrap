@@ -14,7 +14,7 @@ if_not_exist() {
 #   - Install `python-apt` which is required by Ansible `apt` module.
 if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
-	apt-get --quiet=2 update
+	apt-get --quiet=2 --option 'Acquire::Languages=none' update
 	apt-get --quiet=2 --assume-yes install python python-dev python-apt
 	exit
 }
