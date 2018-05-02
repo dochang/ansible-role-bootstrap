@@ -11,11 +11,12 @@ if_not_exist() {
 }
 
 # # apt #
-#   - Install `python-apt` which is required by Ansible `apt` module.
+#   - No need to install `python-apt` or `python3-apt`.  Ansible `apt` and
+#     `apt_repository` modules will do it.
 if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get --quiet=2 --option 'Acquire::Languages=none' update
-	apt-get --quiet=2 --assume-yes install python python-dev python-apt
+	apt-get --quiet=2 --assume-yes install python python-dev
 	exit
 }
 
@@ -35,19 +36,19 @@ if_not_exist zypper || {
 }
 
 # # dnf #
-#   - Install `python2-dnf`, which is required by Ansible `dnf` module.
+#   - No need to install `python2-dnf` or `python3-dnf`.  Ansible `dnf` module
+#     will do it.
 if_not_exist dnf || {
 	dnf --quiet makecache fast
-	dnf --quiet --assumeyes install python python-devel python2-dnf
+	dnf --quiet --assumeyes install python python-devel
 	exit
 }
 
 # # yum #
-#   - Install `yum-utils`.  Ansible `yum` module requires `repoquery`, which is
-#     provided by `yum-utils`, to use `list` parameter.
+#   - No need to install `yum-utils`.  Ansible `yum` module will do it.
 if_not_exist yum || {
 	yum --quiet makecache fast
-	yum --quiet --assumeyes install python python-devel yum-utils
+	yum --quiet --assumeyes install python python-devel
 	exit
 }
 
