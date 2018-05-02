@@ -20,7 +20,7 @@ if_not_exist apt-get || {
 }
 
 if_not_exist pacman || {
-	pacman --sync --quiet --noconfirm --refresh python2
+	pacman --sync --quiet --noconfirm --refresh python
 	exit
 }
 
@@ -56,7 +56,7 @@ if_not_exist yum || {
 #     required by Ansible `portage` module.
 if_not_exist emerge || {
 	emerge --quiet --sync
-	emerge --quiet --ask n =dev-lang/python-2\* gentoolkit
+	emerge --quiet --ask n dev-lang/python gentoolkit
 	exit
 }
 

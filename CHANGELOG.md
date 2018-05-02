@@ -2,6 +2,11 @@
 
 ## [Unreleased] ##
 
+### Changed ###
+
+  - Support Python 3
+  - Depends on Ansible 2.2+
+
 ## [1.0.0] - 2018-05-02 ##
 
 ### Added ###
