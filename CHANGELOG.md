@@ -2,6 +2,10 @@
 
 ## [Unreleased] ##
 
+### Changed ###
+
+  - Force to set the frontends of apt-listchanges & apt-listbugs to none
+
 ## [1.0.0] - 2018-05-02 ##
 
 ### Added ###
