@@ -10,6 +10,17 @@ if_not_exist() {
 	! command -v "$1" >/dev/null 2>&1
 }
 
+sed_in_place() {
+	script_file="$1"
+	target_file="$2"
+	work_file=$(mktemp)
+
+	sed -E -f "$script_file" "$target_file" > "$work_file"
+	cp -f "$work_file" "$target_file"
+	chmod 644 "$target_file"
+	rm -f "$work_file"
+}
+
 # # apt #
 #   - No need to install `python-apt` or `python3-apt`.  Ansible `apt` and
 #     `apt_repository` modules will do it.
@@ -17,6 +28,40 @@ if_not_exist apt-get || {
 	export DEBIAN_FRONTEND=noninteractive
 	export APT_LISTCHANGES_FRONTED=none
 	export APT_LISTBUGS_FRONTEND=none
+	if dpkg --compare-versions "$(dpkg-query --show --showformat='${Version}\n' apt)" lt 1.5; then
+		apt-get --quiet=2 update
+		apt-get --quiet=2 --assume-yes install apt-transport-https
+	fi
+
+	sed_file=$(mktemp)
+	: > "$sed_file"
+	. /etc/os-release
+	case ${ID} in
+	debian)
+		: ${BOOTSTRAP_DEBIAN_URI:=https://deb.debian.org/debian}
+		: ${BOOTSTRAP_DEBIAN_SECURITY_URI:=https://deb.debian.org/debian-security}
+		echo "s|https?://deb\.debian\.org/debian|${BOOTSTRAP_DEBIAN_URI}|" >> "$sed_file"
+		echo "s|https?://http(\.[a-z][a-z])?\.debian\.org/debian|${BOOTSTRAP_DEBIAN_URI}|" >> "$sed_file"
+		echo "s|https?://security\.debian\.org/debian-security|${BOOTSTRAP_DEBIAN_SECURITY_URI}|" >> "$sed_file"
+		sed_in_place "$sed_file" /etc/apt/sources.list
+		# Some VPS providers (e.g. DigitalOcean) use
+		# "http://security.debian.org" for security source.
+		: > "$sed_file"
+		echo "s|https?://security\.debian\.org|${BOOTSTRAP_DEBIAN_SECURITY_URI}|" >> "$sed_file"
+		sed_in_place "$sed_file" /etc/apt/sources.list
+		;;
+	raspbian)
+		: ${BOOTSTRAP_RASPBIAN_URI:=http://raspbian.raspberrypi.org/raspbian}
+		: ${BOOTSTRAP_RASPBIAN_RASPI_URI:=http://deb.debian.org/debian-security}
+		echo "s|https?://archive\.raspbian\.org/raspbian/|${BOOTSTRAP_RASPBIAN_URI}|" >> "$sed_file"
+		echo "s|https?://mirrordirector\.raspbian\.org/raspbian/|${BOOTSTRAP_RASPBIAN_URI}|" >> "$sed_file"
+		sed_in_place "$sed_file" /etc/apt/sources.list
+		: > "$sed_file"
+		echo "s|https?://archive.raspberrypi.org/debian/|${BOOTSTRAP_RASPBIAN_RASPI_URI}|" >> "$sed_file"
+		sed_in_place "$sed_file" /etc/apt/sources.list.d/raspi.list
+		;;
+	esac
+	rm -f "$sed_file"
 	apt-get --quiet=2 --option 'Acquire::Languages=none' update
 	apt-get --quiet=2 --assume-yes install python python-dev
 	exit
