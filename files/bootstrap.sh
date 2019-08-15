@@ -57,9 +57,11 @@ if_not_exist yum || {
 # # emerge #
 #   - Install `gentoolkit`, which contains `equery`.  `gentoolkit` is also
 #     required by Ansible `portage` module.
+#   - Install `app-portage/portage-utils`, which contains `qlist`, which is
+#     required by Ansible `package_facts` module.
 if_not_exist emerge || {
 	emerge --quiet --sync
-	emerge --quiet --ask n dev-lang/python gentoolkit
+	emerge --quiet --ask n dev-lang/python gentoolkit app-portage/portage-utils
 	exit
 }
 

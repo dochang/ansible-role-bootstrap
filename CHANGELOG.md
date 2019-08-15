@@ -2,6 +2,11 @@
 
 ## [Unreleased] ##
 
+### Added ###
+
+  - Install `app-portage/portage-utils` which is required by Ansible
+    `package_facts` module
+
 ## [2.1.0] - 2018-05-07 ##
 
 ### Changed ###
